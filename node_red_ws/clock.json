@@ -1,0 +1,118 @@
+[
+    {
+        "id": "e62ebd5fb38f6f37",
+        "type": "tab",
+        "label": "フロー 5",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3c3b32717c31b11a",
+        "type": "inject",
+        "z": "e62ebd5fb38f6f37",
+        "name": "1秒周期",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 200,
+        "wires": [
+            [
+                "8426309dbf0a4572"
+            ]
+        ]
+    },
+    {
+        "id": "8426309dbf0a4572",
+        "type": "moment",
+        "z": "e62ebd5fb38f6f37",
+        "name": "",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "Asia/Tokyo",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "hh:mm:ss",
+        "locale": "ja-JP",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "Asia/Tokyo",
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "e11a2065a2bd4fc7",
+                "8773f91fb8f39d30"
+            ]
+        ]
+    },
+    {
+        "id": "e11a2065a2bd4fc7",
+        "type": "function",
+        "z": "e62ebd5fb38f6f37",
+        "name": "OLED設定",
+        "func": "msg.payload = {\n    size : 3,\n    x:1,\n    y:33,\n    text:msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 200,
+        "wires": [
+            [
+                "585974b7a640fb4c"
+            ]
+        ]
+    },
+    {
+        "id": "585974b7a640fb4c",
+        "type": "String",
+        "z": "e62ebd5fb38f6f37",
+        "name": "OLED表示",
+        "display": "093a04dacde39c4e",
+        "x": 1030,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8773f91fb8f39d30",
+        "type": "debug",
+        "z": "e62ebd5fb38f6f37",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "093a04dacde39c4e",
+        "type": "oled-config",
+        "name": "RASPI-HOME OLED",
+        "width": "128",
+        "height": "64",
+        "address": "3c"
+    }
+]

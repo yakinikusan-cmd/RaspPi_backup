@@ -1,0 +1,444 @@
+[
+    {
+        "id": "a48130d4d520da95",
+        "type": "tab",
+        "label": "フロー 12",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "01b483c4137abbb9",
+        "type": "inject",
+        "z": "a48130d4d520da95",
+        "name": "観測間隔",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "8e2d6842fb6dd2cb"
+            ]
+        ]
+    },
+    {
+        "id": "8e2d6842fb6dd2cb",
+        "type": "Bme280",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "bus": "1",
+        "address": "0x76",
+        "topic": "bme280",
+        "extra": false,
+        "preasure": 1013.25,
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "b9344ceb16c7e8cb"
+            ]
+        ]
+    },
+    {
+        "id": "1925bdc0590697aa",
+        "type": "ui_chart",
+        "z": "a48130d4d520da95",
+        "name": "気温チャート",
+        "group": "aa1b4455123f95ef",
+        "order": 2,
+        "width": 4,
+        "height": 4,
+        "label": "気温チャート",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "20",
+        "ymax": "40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 780,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b9344ceb16c7e8cb",
+        "type": "function",
+        "z": "a48130d4d520da95",
+        "name": "function 5",
+        "func": "msg.payload = msg.payload.temperature_C.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "1925bdc0590697aa",
+                "07364b783b76c11b",
+                "433961cd295bad75"
+            ]
+        ]
+    },
+    {
+        "id": "831f8a3cd6554c65",
+        "type": "ui_switch",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "label": "警報ON/OFF",
+        "tooltip": "",
+        "group": "aa1b4455123f95ef",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 250,
+        "y": 460,
+        "wires": [
+            [
+                "a4379aabcb53f07f"
+            ]
+        ]
+    },
+    {
+        "id": "4e546c3cae3c19f3",
+        "type": "change",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "warning_temp",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4379aabcb53f07f",
+        "type": "change",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "is_alart_enable",
+                "pt": "global",
+                "to": "msg.payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54ee2290fdeac82f",
+        "type": "switch",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "warning_temp",
+                "vt": "global"
+            },
+            {
+                "t": "lte",
+                "v": "warning_temp",
+                "vt": "global"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 260,
+        "wires": [
+            [
+                "dd9f91b68bc196fc"
+            ],
+            [
+                "5e66953485fe7bc8"
+            ]
+        ]
+    },
+    {
+        "id": "07364b783b76c11b",
+        "type": "switch",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "property": "is_alart_enable",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 730,
+        "y": 260,
+        "wires": [
+            [
+                "54ee2290fdeac82f"
+            ],
+            [
+                "c8137dff9992f302"
+            ]
+        ]
+    },
+    {
+        "id": "c8137dff9992f302",
+        "type": "change",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "警報は解除されています",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 400,
+        "wires": [
+            [
+                "52cd47329a9c1291"
+            ]
+        ]
+    },
+    {
+        "id": "5e66953485fe7bc8",
+        "type": "change",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "安全な気温です",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 360,
+        "wires": [
+            [
+                "52cd47329a9c1291"
+            ]
+        ]
+    },
+    {
+        "id": "dd9f91b68bc196fc",
+        "type": "change",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "危険な気温です",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 220,
+        "wires": [
+            [
+                "52cd47329a9c1291"
+            ]
+        ]
+    },
+    {
+        "id": "52cd47329a9c1291",
+        "type": "ui_text",
+        "z": "a48130d4d520da95",
+        "group": "aa1b4455123f95ef",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "現在の状況",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1390,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "aa1ae18d6dbee4c6",
+        "type": "ui_text_input",
+        "z": "a48130d4d520da95",
+        "name": "",
+        "label": "警告気温",
+        "tooltip": "",
+        "group": "aa1b4455123f95ef",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "4e546c3cae3c19f3"
+            ]
+        ]
+    },
+    {
+        "id": "433961cd295bad75",
+        "type": "ui_gauge",
+        "z": "a48130d4d520da95",
+        "name": "気温",
+        "group": "aa1b4455123f95ef",
+        "order": 1,
+        "width": 4,
+        "height": 4,
+        "gtype": "gage",
+        "title": "気温",
+        "label": "℃",
+        "format": "{{value}}",
+        "min": "-40",
+        "max": "50",
+        "colors": [
+            "#0000ff",
+            "#00ff00",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "aa1b4455123f95ef",
+        "type": "ui_group",
+        "name": "環境センサ",
+        "tab": "c37bd915b90a8b16",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c37bd915b90a8b16",
+        "type": "ui_tab",
+        "name": "Tab3",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]

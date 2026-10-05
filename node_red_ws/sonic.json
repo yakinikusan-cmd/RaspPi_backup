@@ -1,0 +1,81 @@
+[
+    {
+        "id": "f0ca5ba527e2401d",
+        "type": "tab",
+        "label": "フロー 3",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b9a6d0d2c7b84aa6",
+        "type": "rpi-srf",
+        "z": "f0ca5ba527e2401d",
+        "name": "超音波センサ",
+        "topic": "SRF",
+        "pulse": "0.5",
+        "pins": "18,22",
+        "precision": "0",
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "d0235fc1f0a1cdb4",
+                "8a2732ab914b5eb0"
+            ]
+        ]
+    },
+    {
+        "id": "d0235fc1f0a1cdb4",
+        "type": "function",
+        "z": "f0ca5ba527e2401d",
+        "name": "OLED設定",
+        "func": "msg.payload = {\n    size : 2,\n    x:1,\n    y:1,\n    text:msg.payload + \"cm  \"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "f9ec6b54c2970a32"
+            ]
+        ]
+    },
+    {
+        "id": "f9ec6b54c2970a32",
+        "type": "String",
+        "z": "f0ca5ba527e2401d",
+        "name": "OLED表示",
+        "display": "093a04dacde39c4e",
+        "x": 690,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8a2732ab914b5eb0",
+        "type": "debug",
+        "z": "f0ca5ba527e2401d",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "093a04dacde39c4e",
+        "type": "oled-config",
+        "name": "RASPI-HOME OLED",
+        "width": "128",
+        "height": "64",
+        "address": "3c"
+    }
+]

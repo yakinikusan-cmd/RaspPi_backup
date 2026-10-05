@@ -1,0 +1,157 @@
+[
+    {
+        "id": "b087b422d22537d3",
+        "type": "tab",
+        "label": "フロー 6",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1ddb8ef73296120e",
+        "type": "inject",
+        "z": "b087b422d22537d3",
+        "name": "1秒周期",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "425928490319ecc7"
+            ]
+        ]
+    },
+    {
+        "id": "425928490319ecc7",
+        "type": "Bme280",
+        "z": "b087b422d22537d3",
+        "name": "Bme280",
+        "bus": "1",
+        "address": "0x76",
+        "topic": "bme280",
+        "extra": false,
+        "preasure": 1013.25,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "7f83014b94c6a9d7",
+                "7417e9852dd8a8d6"
+            ]
+        ]
+    },
+    {
+        "id": "7f83014b94c6a9d7",
+        "type": "change",
+        "z": "b087b422d22537d3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperature_C",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 140,
+        "wires": [
+            [
+                "3881884ced0d4eb1"
+            ]
+        ]
+    },
+    {
+        "id": "3881884ced0d4eb1",
+        "type": "function",
+        "z": "b087b422d22537d3",
+        "name": "小数第2位まで",
+        "func": "msg.payload = msg.payload.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 140,
+        "wires": [
+            [
+                "8e9460fe8b0cbeee"
+            ]
+        ]
+    },
+    {
+        "id": "8e9460fe8b0cbeee",
+        "type": "function",
+        "z": "b087b422d22537d3",
+        "name": "OLED設定",
+        "func": "msg.payload = {\n    size : 2,\n    x:1,\n    y:33,\n    text:\"T:\" + msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 140,
+        "wires": [
+            [
+                "3e2f9995582161a2"
+            ]
+        ]
+    },
+    {
+        "id": "3e2f9995582161a2",
+        "type": "String",
+        "z": "b087b422d22537d3",
+        "name": "OLED表示",
+        "display": "093a04dacde39c4e",
+        "x": 1410,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7417e9852dd8a8d6",
+        "type": "debug",
+        "z": "b087b422d22537d3",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "093a04dacde39c4e",
+        "type": "oled-config",
+        "name": "RASPI-HOME OLED",
+        "width": "128",
+        "height": "64",
+        "address": "3c"
+    }
+]

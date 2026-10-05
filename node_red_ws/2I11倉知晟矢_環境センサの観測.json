@@ -1,0 +1,351 @@
+[
+    {
+        "id": "0c08898a9bb9398c",
+        "type": "tab",
+        "label": "フロー 11",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "de8b74f23e8858d5",
+        "type": "inject",
+        "z": "0c08898a9bb9398c",
+        "name": "観測間隔",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "b0ca39bf2bdc449b"
+            ]
+        ]
+    },
+    {
+        "id": "b0ca39bf2bdc449b",
+        "type": "Bme280",
+        "z": "0c08898a9bb9398c",
+        "name": "",
+        "bus": "1",
+        "address": "0x76",
+        "topic": "bme280",
+        "extra": false,
+        "preasure": 1013.25,
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "16aa72d753b3a7b4",
+                "fcbf57bf5549d191",
+                "f8db346b00fb0a2a"
+            ]
+        ]
+    },
+    {
+        "id": "1527a3ed6a4d12ec",
+        "type": "ui_chart",
+        "z": "0c08898a9bb9398c",
+        "name": "気温チャート",
+        "group": "48dbdfea0f51c65b",
+        "order": 2,
+        "width": 4,
+        "height": 4,
+        "label": "気温チャート",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "20",
+        "ymax": "40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fb9e540d59c42016",
+        "type": "ui_gauge",
+        "z": "0c08898a9bb9398c",
+        "name": "湿度",
+        "group": "48dbdfea0f51c65b",
+        "order": 3,
+        "width": 4,
+        "height": 5,
+        "gtype": "wave",
+        "title": "湿度",
+        "label": "％",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 850,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "3e17d120bce1c448",
+        "type": "ui_chart",
+        "z": "0c08898a9bb9398c",
+        "name": "湿度チャート",
+        "group": "48dbdfea0f51c65b",
+        "order": 4,
+        "width": 4,
+        "height": 5,
+        "label": "湿度チャート",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d74df0d8158df25",
+        "type": "ui_gauge",
+        "z": "0c08898a9bb9398c",
+        "name": "気圧",
+        "group": "48dbdfea0f51c65b",
+        "order": 5,
+        "width": 4,
+        "height": 5,
+        "gtype": "donut",
+        "title": "気圧",
+        "label": "hpa",
+        "format": "{{value}}",
+        "min": "800",
+        "max": "1200",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 850,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d6a99f22dfe847b7",
+        "type": "ui_chart",
+        "z": "0c08898a9bb9398c",
+        "name": "気圧チャート",
+        "group": "48dbdfea0f51c65b",
+        "order": 6,
+        "width": 4,
+        "height": 5,
+        "label": "気圧チャート",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "800",
+        "ymax": "1200",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "16aa72d753b3a7b4",
+        "type": "function",
+        "z": "0c08898a9bb9398c",
+        "name": "function 2",
+        "func": "msg.payload = msg.payload.temperature_C.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "1527a3ed6a4d12ec",
+                "c14c0ee1e0adecc9"
+            ]
+        ]
+    },
+    {
+        "id": "fcbf57bf5549d191",
+        "type": "function",
+        "z": "0c08898a9bb9398c",
+        "name": "function 3",
+        "func": "msg.payload = msg.payload.humidity.toFixed(2);\nreturn msg\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 300,
+        "wires": [
+            [
+                "3e17d120bce1c448",
+                "fb9e540d59c42016"
+            ]
+        ]
+    },
+    {
+        "id": "f8db346b00fb0a2a",
+        "type": "function",
+        "z": "0c08898a9bb9398c",
+        "name": "function 4",
+        "func": "msg.payload = msg.payload.pressure_hPa.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 520,
+        "wires": [
+            [
+                "4d74df0d8158df25",
+                "d6a99f22dfe847b7"
+            ]
+        ]
+    },
+    {
+        "id": "c14c0ee1e0adecc9",
+        "type": "ui_gauge",
+        "z": "0c08898a9bb9398c",
+        "name": "気温",
+        "group": "48dbdfea0f51c65b",
+        "order": 1,
+        "width": 4,
+        "height": 4,
+        "gtype": "gage",
+        "title": "気温",
+        "label": "℃",
+        "format": "{{value}}",
+        "min": "-40",
+        "max": "50",
+        "colors": [
+            "#0000ff",
+            "#00ff00",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 770,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "48dbdfea0f51c65b",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "67fd0dc96e3c32a0",
+        "order": 1,
+        "disp": true,
+        "width": 8
+    },
+    {
+        "id": "67fd0dc96e3c32a0",
+        "type": "ui_tab",
+        "name": "Tab 2",
+        "icon": "dashboard",
+        "order": 2
+    }
+]

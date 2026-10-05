@@ -1,0 +1,153 @@
+[
+    {
+        "id": "9ba20a1c7986a36b",
+        "type": "tab",
+        "label": "フロー 7",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ba620c53d179f9a9",
+        "type": "inject",
+        "z": "9ba20a1c7986a36b",
+        "name": "1秒周期",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 140,
+        "wires": [
+            [
+                "aa1b0458369207e1"
+            ]
+        ]
+    },
+    {
+        "id": "aa1b0458369207e1",
+        "type": "Bme280",
+        "z": "9ba20a1c7986a36b",
+        "name": "Bme280",
+        "bus": "1",
+        "address": "0x76",
+        "topic": "bme280",
+        "extra": false,
+        "preasure": 1013.25,
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "84aa33724fc2e753"
+            ]
+        ]
+    },
+    {
+        "id": "84aa33724fc2e753",
+        "type": "function",
+        "z": "9ba20a1c7986a36b",
+        "name": "小数第2位まで",
+        "func": "msg.payload.T = msg.payload.temperature_C.toFixed(2);\nmsg.payload.H = msg.payload.humidity.toFixed(2);\nmsg.payload.P = msg.payload.pressure_hPa.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 140,
+        "wires": [
+            [
+                "6e572fd3fc38511a",
+                "a19784b7cc2e86ca",
+                "121b174d1973510f"
+            ]
+        ]
+    },
+    {
+        "id": "6e572fd3fc38511a",
+        "type": "function",
+        "z": "9ba20a1c7986a36b",
+        "name": "OLED設定",
+        "func": "msg.payload = \n    {\n        size: 2,\n        x: 1,\n        y: 1,\n        text: \"T:\" + msg.payload.T\n    }\n\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 140,
+        "wires": [
+            [
+                "45e8592f18e41821"
+            ]
+        ]
+    },
+    {
+        "id": "45e8592f18e41821",
+        "type": "String",
+        "z": "9ba20a1c7986a36b",
+        "name": "OLED表示",
+        "display": "093a04dacde39c4e",
+        "x": 1290,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a19784b7cc2e86ca",
+        "type": "function",
+        "z": "9ba20a1c7986a36b",
+        "name": "OLED設定",
+        "func": "msg.payload = \n    {\n        size: 2,\n        x: 1,\n        y: 18,\n        text: \"H:\" + msg.payload.H\n    }\n\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 260,
+        "wires": [
+            [
+                "45e8592f18e41821"
+            ]
+        ]
+    },
+    {
+        "id": "121b174d1973510f",
+        "type": "function",
+        "z": "9ba20a1c7986a36b",
+        "name": "OLED設定",
+        "func": "msg.payload = \n    {\n        size: 2,\n        x: 1,\n        y: 35,\n        text: \"P:\" + msg.payload.P\n    }\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 360,
+        "wires": [
+            [
+                "45e8592f18e41821"
+            ]
+        ]
+    },
+    {
+        "id": "093a04dacde39c4e",
+        "type": "oled-config",
+        "name": "RASPI-HOME OLED",
+        "width": "128",
+        "height": "64",
+        "address": "3c"
+    }
+]

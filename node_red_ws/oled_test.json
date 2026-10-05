@@ -1,0 +1,115 @@
+[
+    {
+        "id": "5d85a5a39d247928",
+        "type": "tab",
+        "label": "フロー 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "60096b807eb9dd68",
+        "type": "inject",
+        "z": "5d85a5a39d247928",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "NIT Toyota",
+        "payloadType": "str",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "2479ec0bf9cd15c4"
+            ]
+        ]
+    },
+    {
+        "id": "a2075eef8189ec34",
+        "type": "inject",
+        "z": "5d85a5a39d247928",
+        "name": "OLED消去",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "ea9b7a020d692c16"
+            ]
+        ]
+    },
+    {
+        "id": "2479ec0bf9cd15c4",
+        "type": "function",
+        "z": "5d85a5a39d247928",
+        "name": "OLED設定",
+        "func": "msg.payload = {\n    size : 2,\n    x:1,\n    y:1,\n    text:msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "662b9ccb806fd8f7"
+            ]
+        ]
+    },
+    {
+        "id": "662b9ccb806fd8f7",
+        "type": "String",
+        "z": "5d85a5a39d247928",
+        "name": "OLED表示",
+        "display": "093a04dacde39c4e",
+        "x": 730,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ea9b7a020d692c16",
+        "type": "Clear",
+        "z": "5d85a5a39d247928",
+        "name": "消去",
+        "display": "093a04dacde39c4e",
+        "x": 710,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "093a04dacde39c4e",
+        "type": "oled-config",
+        "name": "RASPI-HOME OLED",
+        "width": "128",
+        "height": "64",
+        "address": "3c"
+    }
+]
